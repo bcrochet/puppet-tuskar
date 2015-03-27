@@ -29,11 +29,30 @@
 #   (optional) Timeout before idle db connections are reaped.
 #   Defaults to 3600
 #
+# [*package_ensure*]
+#   (optional) Desired ensure state of packages.
+#   accepts latest or specific versions.
+#   Defaults to present.
+#
 class tuskar(
   $database_connection          = 'sqlite:////var/lib/tuskar/tuskar.sqlite',
   $database_idle_timeout        = 3600,
+  $package_ensure               = 'present',
 ) {
   include ::tuskar::params
+
+  group { 'tuskar':
+    ensure  => present,
+    system  => true,
+    require => Package['tuskar-api'],
+  }
+
+  user { 'tuskar':
+    ensure  => 'present',
+    gid     => 'tuskar',
+    system  => true,
+    require => Package['tuskar-api'],
+  }
 
   exec { 'post-tuskar_config':
     command     => '/bin/echo "Tuskar config has changed"',

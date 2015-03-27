@@ -5,7 +5,7 @@ class tuskar::params {
   case $::osfamily {
     'RedHat': {
       $client_package_name      = 'openstack-tuskar'
-      $api_package_name         = 'openstack-tuskar-api'
+      $api_package_name         = 'openstack-tuskar'
       $api_service_name         = 'openstack-tuskar-api'
       $ui_package_name          = 'openstack-tuskar-ui'
       $ui_extras_package_name   = 'openstack-tuskar-ui-extras'
